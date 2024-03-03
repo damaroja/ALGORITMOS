@@ -59,3 +59,70 @@ test("Returning 'Hello, World!' as a string", () => {
   expect(result).toBe('Hello World!');
 });
 ```
+
+
+
+//app.js
+
+
+
+
+```js
+/**
+ * Returns a string containing 'Hello World!'.
+ * @returns {string} - The string 'Hello World!'.
+ */
+function helloWorld(): string;  
+```
+
+
+const helloWorld = () => {
+    return 'Hello World';
+}
+
+module.exports = helloWorld;
+
+
+
+
+//app.test.js
+
+
+
+const helloWorld = require('./app');
+
+test('helloWorld function should return "Hello World"', () => {
+  expect(helloWorld()).toBe('Hello World');
+});
+
+test('helloWorld function should not return "Hello World"', () => {
+  expect(helloWorld()).not.toBe('Helo World');
+});
+
+test('helloWorld function should not return ""', () => {
+  expect(helloWorld()).not.toBe('');
+});
+
+test('helloWorld function should be defined', () => {
+  expect(helloWorld).toBeDefined();
+});
+
+test('helloWorld function should return a string', () => {
+  expect(typeof helloWorld()).toBe('string');
+});
+
+//test for the length of the string
+test('helloWorld function should return a string with length 11', () => {
+  expect(helloWorld().length).toBe(11);
+});
+
+
+
+
+
+
+
+
+
+
+
