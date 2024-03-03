@@ -170,4 +170,3 @@ test('Invalid operands', () => {
     expect(() => calculator(2, '3', '+')).toThrow('Invalid operands');
 });
 
-//test jest if the result is a number
