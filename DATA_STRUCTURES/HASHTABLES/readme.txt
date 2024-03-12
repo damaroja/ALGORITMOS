@@ -1,48 +1,143 @@
 
-# Hash Table (Hash Map) Intro
 
-In computing, a `hash table` (hash map) is a data structure that implements an associative array abstract data type, a structure that can map keys to values. A hash table uses a hash function to compute an index, also called a hash code, into an array of buckets or slots, where the desired value can be found along with it's index.
+# Maps
 
-Here is a visual representation of a hash table:
+Maps were added as a data structure to JavaScript in the `ES2015` update. In JavaScript, a `map` is a collection of key-value pairs. Maps are also known as dictionaries, hashmaps, and associative arrays in other programming languages. Maps are used to store data in a way that uniquely identifies each element in the collection. This is done by using a key, which is a unique identifier for each element in the collection. The key is used to retrieve the associated value.
 
-<img src="../../assets/images/hash-table.png" width="600" />
+## Maps vs Objects
 
-We have our keys on the left, which are names of people, and we have our stored values on the right, which in this case, are their phone numbers. In the middle is the hash function.
+Maps are similar to objects in that both let you set keys to values, retrieve those values, delete keys, and detect whether something is stored at a key. Objects are used more because they have been around longer, but maps are preferred in certain cases. The biggest difference between maps and objects is that maps allow keys of any type, while objects only allow strings, numbers, and symbols as keys. This means that maps can use functions, objects, and any primitive type as a key.
 
-## Hash Function
+Maps can also have better performance in scenarios involving frequent additions and removals of key-value pairs. On the other hand, objects have better performance for the case of looking up key-value pairs.
 
-A `hash function` is a function that takes in a key and returns an index. The index is used to determine where the key-value pair should be stored in the hash table. The hash function should always return the same index for the same key.
+## Creating a Map
 
-## Hash Collisions
+To create a map, we use the `new` keyword and the `Map()` constructor. let's create a map called `nameMap`:
 
-There is something called a hash collision that can occur when using hash tables. A collision occurs when two keys are mapped to the same index in the array. A good hash function will evenly distribute the keys across the hash table. This will minimize collisions and improve the time complexity of the hash table, which I'll talk about in a minute.
+```js
+const nameMap = new Map();
+```
 
-## Hash Tables in JavaScript
+We can also pass an array of arrays to the `Map()` constructor. The first element in each sub-array will be the key, and the second element will be the value. We can create a map with some key-value pairs like this:
 
-Hash tables are used in many different languages. In JavaScript, we actually have some built in structures that use hash tables. Even an object is an example of a hash table because data is represented in key-value pairs. We also have a `Map` and a `Set` data structure that use hash tables. In this section, I want to do some challenges that use maps and sets, but I also want to learn how to implement a hash table from scratch.
+```js
+const nameMap = new Map([
+  [1, 'John'],
+  [2, 'Jane'],
+  [3, 'Joe'],
+]);
+```
 
-## Time & Space Complexity
+Let's log the map:
 
-When it comes to time complexity, hash tables are a great data structure for fast lookups. The average time complexity for lookups, insertions, and deletions is O(1). Collisions can slow down the time complexity to O(n).
+```js
+console.log(nameMap);
+```
 
-Space complexity is O(n) because we have to store all of the keys and values in the hash table and the size of the hash table is proportional to the number of keys and values.
+We can see that the map has three key-value pairs. The keys are the numbers 1, 2, and 3, and the values are the strings 'John', 'Jane', and 'Joe'. Notice that I used numbers as keys in this example. We can use any type of data as a key, including objects and functions. Let's create a map with some different types of keys:
 
-| Operation | Time Complexity | Space Complexity |
-| --------- | --------------- | ---------------- |
-| Access    | O(1)            | O(n)             |
-| Search    | O(1)            | O(n)             |
-| Insertion | O(1)            | O(n)             |
-| Deletion  | O(1)            | O(n)             |
+```js
+const myFunction = () => {};
+const emptyObj = {};
 
-## Hash Methods
+const map2 = new Map([
+  ['name', 'John'],
+  [1, 'number one'],
+  [true, 'really true'],
+  [null, 'null'],
+  [myFunction, 'empty function'],
+  [emptyObj, 'empty object'],
+]);
+```
 
-Here are some of the methods that are available on a hash table:
+## Retrieving Data
 
-- `set(key, value)` - Adds a key-value pair to the hash table.
-- `get(key)` - Returns the value associated with a key.
-- `remove(key)` - Removes a key-value pair from the hash table.
-- `has(key)` - Returns true if the key exists in the hash table, false otherwise.
-- `keys()` - Returns an array of all the keys in the hash table.
-- `values()` - Returns an array of all the values in the hash table.
+To retrieve data from a map, we use the `get()` method. Let's retrieve the value associated with the key `1` from the `nameMap` map:
 
-We will get to implementing our own custom hash table, but first I want to look at `maps` and `sets` in JavaScript.
+```js
+console.log(nameMap.get(1)); // John
+```
+
+Let's get the function and the object values from the `map2` map:
+
+```js
+console.log(map2.get(myFunction));
+console.log(map2.get(emptyObj));
+```
+
+## Setting Data
+
+To set data in a map, we use the `set()` method. Let's set some new key-value pairs in the `nameMap` map:
+
+```js
+nameMap.set(4, 'Jack');
+nameMap.set(5, 'Jill');
+```
+
+Let's log the map:
+
+```js
+console.log(nameMap); // Map(5) { 1 => 'John', 2 => 'Jane', 3 => 'Joe', 4 => 'Jack', 5 => 'Jill' }
+```
+
+## Checking if a Key Exists
+
+To check if a key exists in a map, we use the `has()` method. Let's check if the key `1` exists in the `nameMap` map:
+
+```js
+console.log(nameMap.has(1)); // true
+console.log(nameMap.has(6)); // false
+```
+
+## Deleting Data
+
+To delete data from a map, we use the `delete()` method. Let's delete the key-value pair with the key `1` from the `nameMap` map:
+
+```js
+nameMap.delete(1);
+console.log(nameMap.has(1)); // false
+```
+
+## Getting the Size of a Map
+
+To get the size of a map, we use the `size` property. Let's log the size of the `nameMap` map:
+
+```js
+console.log(nameMap.size); // 4
+```
+
+## Iterating Through a Map
+
+To iterate/loop through a map, we can use the `for...of` loop. Let's loop through the `nameMap` map and log each key-value pair:
+
+```js
+for (const [key, value] of nameMap) {
+  console.log(key, value);
+}
+```
+
+You can also use the `forEach()` method to loop through a map. Let's log each key-value pair using the `forEach()` method:
+
+```js
+nameMap.forEach((value, key) => {
+  console.log(key, value);
+});
+```
+
+You can also get all of the keys or values from a map using the `keys()` and `values()` methods. Let's log all of the keys and values from the `nameMap` map:
+
+```js
+console.log(nameMap.keys()); // MapIterator { 2, 3, 4, 5 }
+console.log(nameMap.values()); // MapIterator { 'Jane', 'Joe', 'Jack', 'Jill' }
+```
+
+## Clearing a Map
+
+To clear a map, we use the `clear()` method. Let's clear the `nameMap` map:
+
+```js
+nameMap.clear();
+console.log(nameMap.size);
+```
+
+Now let's try some challenges!
