@@ -94,7 +94,7 @@ We can describe this function as `O(log n)` in Big O notation.
 
 In these examples, the time and space complexity are the same. However, this is not always the case. Let's look at an example where the space complexity is different from the time complexity.
 
-## Constant Time `O(1)` and Linear Space `O(n)`
+## Constant Space `O(1)` and Linear Time `O(n)`
 
 ```js
 function findSum(arr) {
