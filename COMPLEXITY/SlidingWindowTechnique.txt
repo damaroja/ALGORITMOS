@@ -66,3 +66,23 @@ const longestSubstringWithoutRepeating = (str) => {
 
 //Test the function with the string "abcabcbb"
 console.log(longestSubstringWithoutRepeating("abcabcbb")) // 3
+
+
+
+
+
+//Create a function that sum k elements of an array. The fucntion takes two arguments: the array and k. The function should return the max sum of the k elements of the array. Must to be O(n) time complexity.
+
+function maxSum(arr, k) {
+    let max = 0;
+    let sum = 0;
+    for (let i = 0; i < k; i++) {
+        sum += arr[i];
+    }
+    max = sum;
+    for (let i = k; i < arr.length; i++) {
+        sum += arr[i] - arr[i - k];
+        max = Math.max(max, sum);
+    }
+    return max;
+}
