@@ -34,3 +34,35 @@ Let's talk a little bit about how this works:
 - Sliding window is best suited for problems that involve contiguous subarrays or substrings.
 - The technique can have variations such as dynamic window size or two-pointer sliding.
 - Be cautious of edge cases where the window size becomes important for efficiency or correctness.
+
+
+//What is The sliding window technique?
+
+//The sliding window technique is a method for finding subarrays or subsequences in an array or string. It is used to solve problems that require finding the longest or shortest subarray or subsequence that meets certain criteria. The technique involves creating a window that moves over the array or string, and then adjusting the window based on the problem's criteria.
+
+//Give me an exmple of a problem that can be solved using the sliding window technique
+//One example of a problem that can be solved using the sliding window technique is the "Longest Substring Without Repeating Characters" problem. In this problem, you are given a string and you need to find the length of the longest substring that does not contain any repeating characters. For example, given the string "abcabcbb", the longest substring without repeating characters is "abc", so the length of the substring is 3.
+
+//Create a function that takes a string as input and returns the length of the longest substring without repeating characters using the sliding window technique.
+
+const longestSubstringWithoutRepeating = (str) => {
+    let longest = 0;
+    let start = 0;
+    let end = 0;
+    const set = new Set();
+    
+    while (end < str.length) {
+        if (!set.has(str[end])) {
+        set.add(str[end]);
+        end++;
+        longest = Math.max(longest, end - start);
+        } else {
+        set.delete(str[start]);
+        start++;
+        }
+    }
+    return longest;
+}
+
+//Test the function with the string "abcabcbb"
+console.log(longestSubstringWithoutRepeating("abcabcbb")) // 3
