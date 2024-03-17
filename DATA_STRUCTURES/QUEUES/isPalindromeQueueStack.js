@@ -282,3 +282,190 @@ console.log(isPalindrome('civic')); // true
 console.log(isPalindrome('stats')); // true
 console.log(isPalindrome('radar')); // true */
 
+
+//*****************************
+test
+//*****************************
+
+const {Stack, Queue, isPalindrome} = require('./app');
+
+describe('Stack', () => {
+  let stack;
+
+  beforeEach(() => {
+    stack = new Stack();
+  });
+
+  afterEach(() => {
+    stack.clearStack();
+  });
+
+  test('push should add a value to the stack', () => {
+    stack.push(1);
+    expect(stack.stackSize()).toBe(1);
+    expect(stack.peek()).toBe(1);
+  });
+
+  test('pop should remove and return the top element from the stack', () => {
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
+    expect(stack.pop()).toBe(3);
+    expect(stack.stackSize()).toBe(2);
+  });
+
+  test('peek should return the top element from the stack without removing it', () => {
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
+    expect(stack.peek()).toBe(3);
+    expect(stack.stackSize()).toBe(3);
+  });
+
+  test('isEmpty should return true if the stack is empty', () => {
+    expect(stack.isEmpty()).toBe(true);
+    stack.push(1);
+    expect(stack.isEmpty()).toBe(false);
+  });
+
+  test('isFull should return true if the stack is full', () => {
+    expect(stack.isFull()).toBe(false);
+    for (let i = 0; i < stack.maxSize; i++) {
+      stack.push(i);
+    }
+    expect(stack.isFull()).toBe(true);
+  });
+
+  test('printStack should print all the elements in the stack', () => {
+    const consoleSpy = jest.spyOn(console, 'log');
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
+    stack.printStack();
+    expect(consoleSpy).toHaveBeenCalledWith(1);
+    expect(consoleSpy).toHaveBeenCalledWith(2);
+    expect(consoleSpy).toHaveBeenCalledWith(3);
+    consoleSpy.mockRestore();
+  });
+
+  test('stackSize should return the size of the stack', () => {
+    expect(stack.stackSize()).toBe(0);
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
+    expect(stack.stackSize()).toBe(3);
+  });
+
+  test('clearStack should clear the stack', () => {
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
+    stack.clearStack();
+    expect(stack.stackSize()).toBe(0);
+    expect(stack.isEmpty()).toBe(true);
+  });
+
+  test('search should return the index of the value if found in the stack', () => {
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
+    expect(stack.search(2)).toBe('Value found at index 1');
+  });
+
+  test('search should return "Value not found" if the value is not in the stack', () => {
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
+    expect(stack.search(4)).toBe('Value not found');
+  });
+
+  test('getStack should return the stack array', () => {
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
+    expect(stack.getStack()).toEqual([1, 2, 3]);
+  });
+});
+
+
+describe('Queue', () => {
+  let queue;
+
+  beforeEach(() => {
+    queue = new Queue();
+  });
+
+  it('should initialize an empty queue', () => {
+    expect(queue.isEmpty()).toBe(true);
+    expect(queue.isFull()).toBe(false);
+    expect(queue.getLength()).toBe(0);
+  });
+
+  it('should enqueue items to the queue', () => {
+    queue.enqueue(1);
+    queue.enqueue(2);
+    queue.enqueue(3);
+
+    expect(queue.isEmpty()).toBe(false);
+    expect(queue.isFull()).toBe(false);
+    expect(queue.getLength()).toBe(3);
+  });
+
+  it('should dequeue items from the queue', () => {
+    queue.enqueue(1);
+    queue.enqueue(2);
+    queue.enqueue(3);
+
+    expect(queue.dequeue()).toBe(1);
+    expect(queue.dequeue()).toBe(2);
+    expect(queue.dequeue()).toBe(3);
+    expect(queue.isEmpty()).toBe(true);
+    expect(queue.getLength()).toBe(0);
+  });
+
+  it('should return the first item in the queue without removing it', () => {
+    queue.enqueue(1);
+    queue.enqueue(2);
+    queue.enqueue(3);
+
+    expect(queue.peek()).toBe(1);
+    expect(queue.getLength()).toBe(3);
+  });
+
+  it('should print all items in the queue', () => {
+    queue.enqueue(1);
+    queue.enqueue(2);
+    queue.enqueue(3);
+
+    const consoleSpy = jest.spyOn(console, 'log');
+    queue.print();
+    expect(consoleSpy).toHaveBeenCalledWith(1);
+    expect(consoleSpy).toHaveBeenCalledWith(2);
+    expect(consoleSpy).toHaveBeenCalledWith(3);
+    expect(consoleSpy).toHaveBeenCalledTimes(3);
+  });
+});
+
+describe('isPalindrome', () => {
+  test('should return true for a palindrome string', () => {
+    expect(isPalindrome('racecar')).toBe(true);
+    expect(isPalindrome('madam')).toBe(true);
+    expect(isPalindrome('level')).toBe(true);
+  });
+
+  test('should return false for a non-palindrome string', () => {
+    expect(isPalindrome('hello')).toBe(false);
+    expect(isPalindrome('world')).toBe(false);
+    expect(isPalindrome('javascript')).toBe(false);
+  });
+
+  test('should return true for an empty string', () => {
+    expect(isPalindrome('')).toBe(true);
+  });
+
+  test('should return true for a single character string', () => {
+    expect(isPalindrome('a')).toBe(true);
+    expect(isPalindrome('z')).toBe(true);
+  });
+});
+
