@@ -116,3 +116,25 @@ graph.addEdge("E", "F");
 
 console.log(graph.depthFirstRecursive("A"));
 graph.print();
+
+
+describe('Graph', () => {
+  describe('depthFirstIterative', () => {
+    it('should return the correct depth-first traversal order', () => {
+      const graph = new Graph();
+      graph.addVertex('A');
+      graph.addVertex('B');
+      graph.addVertex('C');
+      graph.addVertex('D');
+      graph.addVertex('E');
+      graph.addEdge('A', 'B');
+      graph.addEdge('A', 'C');
+      graph.addEdge('B', 'D');
+      graph.addEdge('C', 'E');
+
+      const result = graph.depthFirstIterative('A');
+      expect(result).toEqual(['A', 'C', 'E', 'B', 'D']);
+    });
+  });
+});
+
