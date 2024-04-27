@@ -199,3 +199,82 @@ const longestPath = graph.findLongestPath(1, 5);
 console.log(longestPath);
 
 
+//*************************************
+tests
+//*************************************
+
+describe('Graph', () => {
+  let graph;
+
+  beforeEach(() => {
+    graph = new Graph();
+  });
+
+  it('should add nodes to the graph', () => {
+    graph.addNode(1);
+    graph.addNode(2);
+    graph.addNode(3);
+
+    expect(graph.hasNode(1)).toBe(true);
+    expect(graph.hasNode(2)).toBe(true);
+    expect(graph.hasNode(3)).toBe(true);
+  });
+
+  it('should add edges between nodes in the graph', () => {
+    graph.addNode(1);
+    graph.addNode(2);
+    graph.addNode(3);
+
+    graph.addEdge(1, 2);
+    graph.addEdge(2, 3);
+
+    expect(graph.hasEdge(1, 2)).toBe(true);
+    expect(graph.hasEdge(2, 3)).toBe(true);
+  });
+
+  it('should remove nodes from the graph', () => {
+    graph.addNode(1);
+    graph.addNode(2);
+    graph.addNode(3);
+
+    graph.removeNode(2);
+
+    expect(graph.hasNode(1)).toBe(true);
+    expect(graph.hasNode(2)).toBe(false);
+    expect(graph.hasNode(3)).toBe(true);
+  });
+
+  it('should remove edges between nodes in the graph', () => {
+    graph.addNode(1);
+    graph.addNode(2);
+    graph.addNode(3);
+
+    graph.addEdge(1, 2);
+    graph.addEdge(2, 3);
+
+    graph.removeEdge(1, 2);
+
+    expect(graph.hasEdge(1, 2)).toBe(false);
+    expect(graph.hasEdge(2, 3)).toBe(true);
+  });
+
+  it('should find the shortest path between two nodes in the graph', () => {
+    graph.addNode(1);
+    graph.addNode(2);
+    graph.addNode(3);
+    graph.addNode(4);
+    graph.addNode(5);
+
+    graph.addEdge(1, 2);
+    graph.addEdge(1, 3);
+    graph.addEdge(2, 4);
+    graph.addEdge(3, 5);
+    graph.addEdge(4, 5);
+
+    const shortestPath = graph.findShortestPath(1, 5);
+
+    expect(shortestPath).toEqual([1, 3, 5]);
+  });
+});
+
+
