@@ -1,0 +1,59 @@
+
+
+
+
+
+
+//Create a list class of numbers
+
+
+class List {
+    constructor() {
+        this.list = [];
+    }
+
+    add(num) {
+        this.list.push(num);
+    }
+}
+
+let list = new List();
+list.add(2);
+list.add(4);
+list.add(3);
+
+let list2 = new List();
+list2.add(5);
+list2.add(6);
+list2.add(4);
+
+const sumListNodes = (list1, list2) => {
+    let sum = 0;
+    let num1 = 0
+    let num2 = 0;
+    for (let i = 0; i < list1.list.length; i++) {
+        num1 += String(list1.list[i])
+    }
+    for (let i = 0; i < list2.list.length; i++) {
+        num2 += String(list2.list[i]);
+    }
+    sum = +num1 + +num2;
+    const sumList = new List();
+    const sumString = String(sum);
+    for(let i = 0; i < sumString.length; i++){
+        sumList.add(+sumString[i]);    
+    }
+    return sumList;
+}
+
+module.exports = {sumListNodes, List};
+
+//Complexity time: O(n)
+//Complexity space: O(n)
+//Max Complexity time: O(n)
+//Min Complexity time: O(n)
+//Average Complexity time: O(n)
+//Max Complexity space: O(n)
+//Min Complexity space: O(1)
+//Average Complexity space: O(1)
+
